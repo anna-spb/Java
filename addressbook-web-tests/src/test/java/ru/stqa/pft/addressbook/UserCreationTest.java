@@ -30,8 +30,8 @@ public class UserCreationTest {
 
     @Test
     public void testUserCreation() throws Exception {
-        fillUserForm("Anna", "Borisovna", "Dedova",
-                "Sova", "Google", "Tel-Aviv", "123456789");
+        fillUserForm(new UserData("Anna", "Borisovna", "Dedova",
+                "Sova", "Google", "Tel-Aviv", "123456789"));
         submitUserCreation();
         returnToMainPage();
     }
@@ -45,29 +45,28 @@ public class UserCreationTest {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    private void fillUserForm(String firstName, String middleName, String lastName, String nickname,
-                              String company, String address, String phone) {
+    private void fillUserForm(UserData userData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
-        wd.findElement(By.name("firstname")).sendKeys(firstName);
+        wd.findElement(By.name("firstname")).sendKeys(userData.getFirstName());
         wd.findElement(By.name("middlename")).click();
         wd.findElement(By.name("middlename")).clear();
-        wd.findElement(By.name("middlename")).sendKeys(middleName);
+        wd.findElement(By.name("middlename")).sendKeys(userData.getMiddleName());
         wd.findElement(By.name("lastname")).click();
         wd.findElement(By.name("lastname")).clear();
-        wd.findElement(By.name("lastname")).sendKeys(lastName);
+        wd.findElement(By.name("lastname")).sendKeys(userData.getLastName());
         wd.findElement(By.name("nickname")).click();
         wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys(nickname);
+        wd.findElement(By.name("nickname")).sendKeys(userData.getNickname());
         wd.findElement(By.name("company")).click();
         wd.findElement(By.name("company")).clear();
-        wd.findElement(By.name("company")).sendKeys(company);
+        wd.findElement(By.name("company")).sendKeys(userData.getCompany());
         wd.findElement(By.name("address")).click();
         wd.findElement(By.name("address")).clear();
-        wd.findElement(By.name("address")).sendKeys(address);
+        wd.findElement(By.name("address")).sendKeys(userData.getAddress());
         wd.findElement(By.name("home")).click();
         wd.findElement(By.name("home")).clear();
-        wd.findElement(By.name("home")).sendKeys(phone);
+        wd.findElement(By.name("home")).sendKeys(userData.getPhone());
     }
 
     @AfterClass(alwaysRun = true)
