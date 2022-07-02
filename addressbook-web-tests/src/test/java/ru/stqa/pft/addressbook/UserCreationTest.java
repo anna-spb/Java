@@ -29,10 +29,24 @@ public class UserCreationTest {
     }
 
     @Test
-    public void testUserCreation(String firstName, String middleName, String lastName,
-                                 String nickname, String company, String address, String phone)
-            throws Exception {
+    public void testUserCreation() throws Exception {
+        fillUserForm("Anna", "Borisovna", "Dedova",
+                "Sova", "Google", "Tel-Aviv", "123456789");
+        submitUserCreation();
+        returnToMainPage();
+    }
 
+    private void returnToMainPage() {
+        wd.findElement(By.linkText("home")).click();
+        wd.get("http://localhost/addressbook/");
+    }
+
+    private void submitUserCreation() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    private void fillUserForm(String firstName, String middleName, String lastName, String nickname,
+                              String company, String address, String phone) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(firstName);
@@ -54,10 +68,6 @@ public class UserCreationTest {
         wd.findElement(By.name("home")).click();
         wd.findElement(By.name("home")).clear();
         wd.findElement(By.name("home")).sendKeys(phone);
-        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
-        wd.findElement(By.linkText("home")).click();
-        wd.get("http://localhost/addressbook/");
-
     }
 
     @AfterClass(alwaysRun = true)
