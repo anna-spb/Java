@@ -15,10 +15,6 @@ public class UserCreationTest {
     public void setUp() throws Exception {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-    }
-
-    @Test
-    public void testUserCreation() throws Exception {
         wd.get("http://localhost/addressbook/edit.php");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
@@ -26,6 +22,11 @@ public class UserCreationTest {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys("secret");
         wd.findElement(By.xpath("//input[@value='Login']")).click();
+    }
+
+    @Test
+    public void testUserCreation() throws Exception {
+
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys("Anna");
@@ -50,11 +51,12 @@ public class UserCreationTest {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
         wd.findElement(By.linkText("home")).click();
         wd.get("http://localhost/addressbook/");
-        wd.findElement(By.linkText("Logout")).click();
+
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
+        wd.findElement(By.linkText("Logout")).click();
         wd.quit();
     }
 
