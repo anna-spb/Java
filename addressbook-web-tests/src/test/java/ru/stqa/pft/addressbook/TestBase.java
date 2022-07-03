@@ -5,8 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 import java.time.Duration;
 
 public class TestBase {
@@ -20,7 +19,7 @@ public class TestBase {
         login("admin", "secret");
     }
 
-    private void login(String username, String password) {
+    protected void login(String username, String password) {
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
         wd.findElement(By.name("user")).sendKeys(username);
@@ -66,7 +65,7 @@ public class TestBase {
 
     }
 
-    private boolean isElementPresent(By by) {
+    protected boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
             return true;
@@ -75,7 +74,7 @@ public class TestBase {
         }
     }
 
-    private boolean isAlertPresent() {
+    protected boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
             return true;
@@ -84,11 +83,61 @@ public class TestBase {
         }
     }
 
-    protected void deleteSelectedGroup() {
-        wd.findElement(By.xpath("//input[5]")).click();
+    protected void submitUserCreation() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    protected void selectGroup() {
-        wd.findElement(By.name("selected[]")).click();
+    protected void fillUserForm(UserData userData) {
+        wd.findElement(By.name("firstname")).click();
+        wd.findElement(By.name("firstname")).clear();
+        wd.findElement(By.name("firstname")).sendKeys(userData.getFirstName());
+        wd.findElement(By.name("middlename")).click();
+        wd.findElement(By.name("middlename")).clear();
+        wd.findElement(By.name("middlename")).sendKeys(userData.getMiddleName());
+        wd.findElement(By.name("lastname")).click();
+        wd.findElement(By.name("lastname")).clear();
+        wd.findElement(By.name("lastname")).sendKeys(userData.getLastName());
+        wd.findElement(By.name("nickname")).click();
+        wd.findElement(By.name("nickname")).clear();
+        wd.findElement(By.name("nickname")).sendKeys(userData.getNickname());
+        wd.findElement(By.name("company")).click();
+        wd.findElement(By.name("company")).clear();
+        wd.findElement(By.name("company")).sendKeys(userData.getCompany());
+        wd.findElement(By.name("address")).click();
+        wd.findElement(By.name("address")).clear();
+        wd.findElement(By.name("address")).sendKeys(userData.getAddress());
+        wd.findElement(By.name("home")).click();
+        wd.findElement(By.name("home")).clear();
+        wd.findElement(By.name("home")).sendKeys(userData.getPhone());
+    }
+
+    protected void returnToMainPage() {
+        wd.findElement(By.linkText("home")).click();
+        wd.get("http://localhost/addressbook/");
+    }
+
+    protected void deleteSelectedUser() {
+        wd.findElement(By.xpath("//input[@value='Delete']")).click();
+    }
+
+    protected void selectUser() {
+        wd.findElement(By.id("2")).click();
+    }
+
+    protected void chooseUser() {
+        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td")).click();
+    }
+
+    protected void returnToHomePage() {
+        wd.findElement(By.linkText("home")).click();
+        wd.get("http://localhost/addressbook/");
+    }
+
+    protected void submitNewUser() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    protected void addNewUser() {
+        wd.findElement(By.linkText("add new")).click();
     }
 }
