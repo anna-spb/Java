@@ -1,26 +1,26 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.UserData;
 
 import java.time.Duration;
 
-public class TestBase {
+public class ApplicationManager {
     WebDriver wd;
 
-    @BeforeMethod(alwaysRun = true)
-    public void setUp() throws Exception {
+    public void init() {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         wd.get("http://localhost/addressbook/index.php");
         login("admin", "secret");
     }
 
-    protected void login(String username, String password) {
+    public void login(String username, String password) {
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
         wd.findElement(By.name("user")).sendKeys(username);
@@ -30,15 +30,15 @@ public class TestBase {
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
-    protected void returnToGroupPage() {
+    public void returnToGroupPage() {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    protected void submitGroup() {
+    public void submitGroup() {
         wd.findElement(By.name("submit")).click();
     }
 
-    protected void fillGroupForm(GroupData groupData) {
+    public void fillGroupForm(GroupData groupData) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
@@ -50,23 +50,20 @@ public class TestBase {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    protected void initGroupCreation() {
+    public void initGroupCreation() {
         wd.findElement(By.name("new")).click();
     }
 
-    protected void goToGroupPage() {
+    public void goToGroupPage() {
         wd.findElement(By.linkText("groups")).click();
         wd.get("http://localhost/addressbook/group.php");
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() throws Exception {
-        wd.findElement(By.linkText("Logout")).click();
+    public void stop() {
         wd.quit();
-
     }
 
-    protected boolean isElementPresent(By by) {
+    public boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
             return true;
@@ -75,7 +72,7 @@ public class TestBase {
         }
     }
 
-    protected boolean isAlertPresent() {
+    public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
             return true;
@@ -84,11 +81,8 @@ public class TestBase {
         }
     }
 
-    protected void submitUserCreation() {
-        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
-    }
 
-    protected void fillUserForm(UserData userData) {
+    public void fillUserForm(UserData userData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(userData.getFirstName());
@@ -112,42 +106,38 @@ public class TestBase {
         wd.findElement(By.name("home")).sendKeys(userData.getPhone());
     }
 
-    protected void closeAlert() {
+    public void closeAlert() {
         wd.switchTo().alert().accept();
     }
 
-    protected void deleteSelectedUser() {
+    public void deleteSelectedUser() {
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
 
     }
 
-    protected void selectUser() {
-        //  wd.get("http://localhost/addressbook/");
+    public void selectUser() {
         wd.findElement(By.name("selected[]")).click();
 
     }
 
-    protected void returnToHomePage() {
+    public void returnToHomePage() {
         wd.findElement(By.linkText("home")).click();
         wd.get("http://localhost/addressbook/");
     }
 
-    protected void submitNewUser() {
+    public void submitNewUser() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    protected void addNewUser() {
+    public void addNewUser() {
         wd.findElement(By.linkText("add new")).click();
     }
 
-
-    protected void selectGroup() {
+    public void selectGroup() {
         wd.findElement(By.name("selected[]")).click();
     }
 
-    protected void deleteSelectedGroup() {
+    public void deleteSelectedGroup() {
         wd.findElement(By.xpath("//input[5]")).click();
     }
-
-
 }
