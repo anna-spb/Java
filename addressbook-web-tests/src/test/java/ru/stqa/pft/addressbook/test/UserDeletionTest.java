@@ -5,10 +5,10 @@ public class UserDeletionTest extends TestBase {
 
     @Test
     public void testUserDeletion() {
-        app.selectUser();
-        app.deleteSelectedUser();
-        app.closeAlert();
-        app.returnToHomePage();
+        app.getUserHelper().selectUser();
+        app.getUserHelper().deleteSelectedUser();
+        app.getUserHelper().closeAlert();
+        app.getNavigationHelper().returnToHomePage();
 
     }
 }

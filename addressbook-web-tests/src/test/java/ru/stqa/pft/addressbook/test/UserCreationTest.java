@@ -8,11 +8,11 @@ public class UserCreationTest extends TestBase {
 
     @Test
     public void testUserCreation() {
-        app.addNewUser();
-        app.fillUserForm(new UserData("Anna", "Borisovna", "Dedova",
+        app.getUserHelper().addNewUser();
+        app.getUserHelper().fillUserForm(new UserData("Anna", "Borisovna", "Dedova",
                 "Sova", "Google", "Tel-Aviv", "123456789"));
-        app.submitNewUser();
-        app.returnToHomePage();
+        app.getUserHelper().submitNewUser();
+        app.getNavigationHelper().returnToHomePage();
     }
 
 }
