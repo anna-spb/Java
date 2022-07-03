@@ -6,10 +6,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
+
 import java.time.Duration;
 
 public class TestBase {
-     WebDriver wd;
+    WebDriver wd;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
@@ -111,21 +112,19 @@ public class TestBase {
         wd.findElement(By.name("home")).sendKeys(userData.getPhone());
     }
 
-    protected void returnToMainPage() {
-        wd.findElement(By.linkText("home")).click();
-        wd.get("http://localhost/addressbook/");
+    protected void closeAlert() {
+        wd.switchTo().alert().accept();
     }
 
     protected void deleteSelectedUser() {
         wd.findElement(By.xpath("//input[@value='Delete']")).click();
+
     }
 
     protected void selectUser() {
-        wd.findElement(By.id("2")).click();
-    }
+        //  wd.get("http://localhost/addressbook/");
+        wd.findElement(By.name("selected[]")).click();
 
-    protected void chooseUser() {
-        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td")).click();
     }
 
     protected void returnToHomePage() {
@@ -140,4 +139,15 @@ public class TestBase {
     protected void addNewUser() {
         wd.findElement(By.linkText("add new")).click();
     }
+
+
+    protected void selectGroup() {
+        wd.findElement(By.name("selected[]")).click();
+    }
+
+    protected void deleteSelectedGroup() {
+        wd.findElement(By.xpath("//input[5]")).click();
+    }
+
+
 }
