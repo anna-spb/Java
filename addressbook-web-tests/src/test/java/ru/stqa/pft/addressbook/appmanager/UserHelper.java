@@ -39,4 +39,12 @@ public class UserHelper extends HelperBase {
     public void addNewUser() {
         click(By.linkText("add new"));
     }
+
+    public void initUserModification() {
+        click (By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitModificationUser() {
+        click(By.name("update"));
+    }
 }
