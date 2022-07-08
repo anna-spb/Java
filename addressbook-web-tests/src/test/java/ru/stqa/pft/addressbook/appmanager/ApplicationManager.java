@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import sun.plugin2.util.BrowserType;
 
 import java.time.Duration;
 
@@ -13,9 +15,19 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
+    private final int browser;
+
+    public ApplicationManager(int browser) {
+        this.browser = browser;
+    }
 
     public void init() {
-        wd = new ChromeDriver();
+        if (browser == BrowserType.MOZILLA) {
+            wd = new FirefoxDriver();
+        } else if (browser == BrowserType.DEFAULT) {
+            wd = new ChromeDriver();
+        }
+
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         wd.get("http://localhost/addressbook/index.php");
         groupHelper = new GroupHelper(wd);
@@ -24,7 +36,6 @@ public class ApplicationManager {
         userHelper = new UserHelper(wd);
         sessionHelper.login("admin", "secret");
     }
-
 
     public void stop() {
         wd.quit();
@@ -38,7 +49,6 @@ public class ApplicationManager {
             return false;
         }
     }
-
 
     public GroupHelper getGroupHelper() {
         return groupHelper;
