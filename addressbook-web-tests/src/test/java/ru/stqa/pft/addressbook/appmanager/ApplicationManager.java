@@ -5,7 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import sun.plugin2.util.BrowserType;
+import org.openqa.selenium.remote.BrowserType;
 
 import java.time.Duration;
 
@@ -15,16 +15,17 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
-    private final int browser;
+    private final String browser;
 
-    public ApplicationManager(int browser) {
+    public ApplicationManager(String browser) {
         this.browser = browser;
     }
 
+
     public void init() {
-        if (browser == BrowserType.MOZILLA) {
+        if (browser.equals(BrowserType.FIREFOX))  {
             wd = new FirefoxDriver();
-        } else if (browser == BrowserType.DEFAULT) {
+        } else if (browser.equals(BrowserType.CHROME) ) {
             wd = new ChromeDriver();
         }
 

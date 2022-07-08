@@ -1,12 +1,13 @@
 package ru.stqa.pft.addressbook.test;
 
-import org.testng.annotations.*;
+import org.openqa.selenium.remote.BrowserType;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
-import sun.plugin2.util.BrowserType;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.MOZILLA);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
