@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.test;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.UserData;
 
 public class GroupModificationTests extends TestBase {
 
@@ -16,5 +17,8 @@ public class GroupModificationTests extends TestBase {
         app.getGroupHelper().fillGroupForm(new GroupData("test1", "test2", "test3"));
         app.getGroupHelper().submitGroupModifocation();
         app.getGroupHelper().returnToGroupPage();
+    }
+    public void createUser(UserData user, boolean b) {
+
     }
 }
