@@ -12,7 +12,7 @@ public class UserCreationTest extends TestBase {
         app.getUserHelper().fillUserForm(new UserData("Anna", "Borisovna", "Dedova",
                 "Sova", "Google", "Tel-Aviv", "123456789", "test1"), true);
         app.getUserHelper().submitNewUser();
-        app.getNavigationHelper().returnToHomePage();
+        app.getNavigationHelper().goToHomePage();
     }
 
 }
