@@ -27,12 +27,15 @@ public class UserHelper extends HelperBase {
         type(By.name("address"), userData.getAddress());
         type(By.name("home"), userData.getPhone());
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+            if (isElementPresent(By.name(userData.getGroup()))) {
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+            } else {
+                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
-
 
     public void closeAlert() {
         wd.switchTo().alert().accept();
@@ -62,9 +65,9 @@ public class UserHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createUser(UserData user, boolean b) {
+    public void createUser(UserData userData, boolean creation) {
         addNewUser();
-        fillUserForm(user, b);
+        fillUserForm(userData, creation);
         submitNewUser();
         app.getNavigationHelper().goToHomePage();
     }
