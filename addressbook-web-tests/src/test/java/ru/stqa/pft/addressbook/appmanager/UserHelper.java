@@ -65,9 +65,9 @@ public class UserHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createUser(UserData userData, boolean creation) {
+    public void createUser(UserData userData) {
         addNewUser();
-        fillUserForm(userData, creation);
+        fillUserForm(userData, true);
         submitNewUser();
         app.getNavigationHelper().goToHomePage();
     }

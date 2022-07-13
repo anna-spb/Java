@@ -9,7 +9,7 @@ public class UserDeletionTest extends TestBase {
     public void testUserDeletion() {
         if (!app.getUserHelper().isThereAnyUser()) {
             app.getUserHelper().createUser(new UserData("Anna", null, "Dedova",
-                    null, "Google", "Tel-Aviv", "123456789", "test1"), true);
+                    null, "Google", "Tel-Aviv", "123456789", "test1"));
         }
         app.getUserHelper().selectUser();
         app.getUserHelper().deleteSelectedUser();

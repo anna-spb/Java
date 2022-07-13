@@ -9,7 +9,7 @@ public class UserModificationTests extends TestBase {
     public void testUserModification() {
         if(! app.getUserHelper().isThereAnyUser()){
             app.getUserHelper().createUser(new UserData("Anna", null, "Dedova",
-                    null, null, "Tel-Aviv", "123456789", "test1"), true);
+                    null, null, "Tel-Aviv", "123456789", "test1"));
         }
         app.getUserHelper().selectUser();
         app.getUserHelper().initUserModification();
