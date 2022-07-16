@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
-
 import java.time.Duration;
 
 public class ApplicationManager {
@@ -29,7 +28,7 @@ public class ApplicationManager {
             wd = new ChromeDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         wd.get("http://localhost/addressbook/index.php");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
