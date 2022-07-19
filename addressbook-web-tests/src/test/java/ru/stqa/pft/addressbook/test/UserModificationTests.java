@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
+import java.util.List;
+
 public class UserModificationTests extends TestBase {
 
     @Test
@@ -12,14 +14,14 @@ public class UserModificationTests extends TestBase {
             app.getUserHelper().createUser(new UserData("Anna", null, "Dedova",
                     null, null, "Tel-Aviv", "123456789", "test1"));
         }
-        int before = app.getUserHelper().getUserCount();
-        app.getUserHelper().selectUser(before - 1);
+        List<UserData> before = app.getUserHelper().getUserList();
+        app.getUserHelper().selectUser(before.size() - 1);
         app.getUserHelper().initUserModification();
         app.getUserHelper().fillUserForm(new UserData("Anna", "Borisovna", "Dedova",
                 "Sova", "Google", "Tel-Aviv", "123456789", "test1"), false);
         app.getUserHelper().submitModificationUser();
         app.getNavigationHelper().goToHomePage();
-        int after = app.getUserHelper().getUserCount();
-        Assert.assertEquals(after, before);
+        List<UserData> after = app.getUserHelper().getUserList();
+        Assert.assertEquals(after.size(), before.size() );
     }
 }

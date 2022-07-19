@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
@@ -9,6 +10,9 @@ import ru.stqa.pft.addressbook.model.UserData;
 
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static ru.stqa.pft.addressbook.test.TestBase.app;
 
@@ -78,5 +82,19 @@ public class UserHelper extends HelperBase {
 
     public int getUserCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<UserData> getUserList() {
+        List<UserData> users = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements){
+            String firstName = element.getText();
+            String lastName = element.getText();
+            UserData user = new UserData(firstName, null, lastName,null, null, null,
+            null, null);
+            users.add(user);
+        }
+
+        return users;
     }
 }
