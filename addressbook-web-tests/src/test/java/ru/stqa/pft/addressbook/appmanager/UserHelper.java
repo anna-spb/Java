@@ -75,4 +75,8 @@ public class UserHelper extends HelperBase {
     public boolean isThereAnyUser() {
         return isElementPresent(By.name("selected[]"));
     }
+
+    public int getUserCount() {
+      return  wd.findElements(By.name("selected[]")).size();
+    }
 }
