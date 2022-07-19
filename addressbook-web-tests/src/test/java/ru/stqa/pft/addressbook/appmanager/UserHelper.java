@@ -8,9 +8,6 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 
 
-import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.UserData;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,15 +83,19 @@ public class UserHelper extends HelperBase {
 
     public List<UserData> getUserList() {
         List<UserData> users = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements){
-            String firstName = element.getText();
-            String lastName = element.getText();
-            UserData user = new UserData(firstName, null, lastName,null, null, null,
-            null, null);
+       // WebElement element2 = wd.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]"));
+        List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[position() >= 2]"));
+        for (WebElement element : elements) {
+         //String firstName = element.findElement(By.tagName("td")).getText();
+            String lastName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr/td[2]")).getText();
+            String firstName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr/td[3]")).getText();
+            String id = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr/td[1]")).
+                    findElement(By.tagName("input")).getAttribute("value");
+            UserData user = new UserData(id, firstName, null, lastName, null, null,
+                    null, null, null);
             users.add(user);
         }
-
         return users;
     }
 }
+//*[@id="maintable"]/tbody/tr[2]/td[1]

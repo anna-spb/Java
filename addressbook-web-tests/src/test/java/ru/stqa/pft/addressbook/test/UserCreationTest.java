@@ -13,8 +13,8 @@ public class UserCreationTest extends TestBase {
     public void testUserCreation() {
 
         List<UserData> before = app.getUserHelper().getUserList();
-        app.getUserHelper().createUser(new UserData("Anna", null, "Dedova",
-                null, "Google", "Tel-Aviv", "123456789","test3"));
+        app.getUserHelper().createUser(new UserData("Anna", null,
+                "Dedova", null, "Google", "Tel-Aviv", "123456789", "test3"));
 
         List<UserData> after = app.getUserHelper().getUserList();
         Assert.assertEquals(after.size(), before.size() +1);
