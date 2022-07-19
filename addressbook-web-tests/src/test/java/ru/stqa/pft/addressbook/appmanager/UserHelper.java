@@ -45,8 +45,8 @@ public class UserHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void selectUser() {
-        click(By.name("selected[]"));
+    public void selectUser(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void submitNewUser() {
@@ -77,6 +77,6 @@ public class UserHelper extends HelperBase {
     }
 
     public int getUserCount() {
-      return  wd.findElements(By.name("selected[]")).size();
+        return wd.findElements(By.name("selected[]")).size();
     }
 }

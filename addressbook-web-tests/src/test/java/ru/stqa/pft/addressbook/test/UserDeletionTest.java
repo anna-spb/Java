@@ -13,7 +13,7 @@ public class UserDeletionTest extends TestBase {
                     null, "Google", "Tel-Aviv", "123456789", "test1"));
         }
         int before = app.getUserHelper().getUserCount();
-        app.getUserHelper().selectUser();
+        app.getUserHelper().selectUser(before - 1);
         app.getUserHelper().deleteSelectedUser();
         app.getUserHelper().closeAlert();
         app.getNavigationHelper().goToHomePage();
