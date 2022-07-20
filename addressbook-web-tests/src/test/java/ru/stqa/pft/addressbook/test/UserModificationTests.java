@@ -17,9 +17,9 @@ public class UserModificationTests extends TestBase {
         }
         List<UserData> before = app.getUserHelper().getUserList();
         app.getUserHelper().selectUser(before.size() - 1);
-        app.getUserHelper().initUserModification();
-        UserData user = new UserData( before.get(before.size()-1).getId(),"Anna", "Borisovna",
-                "Dedova", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
+        app.getUserHelper().initUserModification(before.size() - 1);
+        UserData user = new UserData( before.get(before.size()-1).getId(),"Netochka", "Borisovna",
+                "Brooooshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
         app.getUserHelper().fillUserForm(user, false);
         app.getUserHelper().submitModificationUser();
         app.getNavigationHelper().goToHomePage();
@@ -28,6 +28,6 @@ public class UserModificationTests extends TestBase {
 
         before.remove(before.size() - 1);
         before.add(user);
-        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
+        Assert.assertEquals(new HashSet<Object>(after),new HashSet<Object>(before));
     }
 }
