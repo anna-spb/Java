@@ -19,7 +19,7 @@ public class UserModificationTests extends TestBase {
         app.getUserHelper().selectUser(before.size() - 1);
         app.getUserHelper().initUserModification(before.size() - 1);
         UserData user = new UserData( before.get(before.size()-1).getId(),"Netochka", "Borisovna",
-                "Brooooshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
+                "Broshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
         app.getUserHelper().fillUserForm(user, false);
         app.getUserHelper().submitModificationUser();
         app.getNavigationHelper().goToHomePage();

@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTest extends TestBase {
@@ -13,11 +14,16 @@ public class UserCreationTest extends TestBase {
     public void testUserCreation() {
 
         List<UserData> before = app.getUserHelper().getUserList();
-        app.getUserHelper().createUser(new UserData("Anna", null,
-                "Dedova", null, "Google", "Tel-Aviv", "123456789", "test3"));
+        UserData user = new UserData("Netochka", "Borisovna",
+                "Broshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
+        app.getUserHelper().createUser(user);
 
         List<UserData> after = app.getUserHelper().getUserList();
-        Assert.assertEquals(after.size(), before.size() +1);
+        Assert.assertEquals(after.size(), before.size() + 1);
+
+        user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+        before.add(user);
+        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 
 }

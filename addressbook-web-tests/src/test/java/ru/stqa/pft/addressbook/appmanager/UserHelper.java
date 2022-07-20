@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,8 +58,9 @@ public class UserHelper extends HelperBase {
     }
 
     public void initUserModification(int index) {
-      wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
     }
+
     public void submitModificationUser() {
         click(By.name("update"));
     }
@@ -86,7 +86,8 @@ public class UserHelper extends HelperBase {
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
-            String id = element.findElement(By.xpath(".//td[1]")).findElement(By.tagName("input")).getAttribute("value");
+            int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]")).
+                    findElement(By.tagName("input")).getAttribute("value"));
             UserData user = new UserData(id, firstName, null, lastName, null, null,
                     null, null, null);
             users.add(user);
