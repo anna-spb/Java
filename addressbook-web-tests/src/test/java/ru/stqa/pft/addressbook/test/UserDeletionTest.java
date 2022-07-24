@@ -10,6 +10,7 @@ public class UserDeletionTest extends TestBase {
 
     @Test
     public void testUserDeletion() {
+        app.getNavigationHelper().goToHomePage();
         if (!app.getUserHelper().isThereAnyUser()) {
             app.getUserHelper().createUser(new UserData( "Anna", null,
                     "Dedova", null, "Google", "Tel-Aviv", "123456789", "test1"));

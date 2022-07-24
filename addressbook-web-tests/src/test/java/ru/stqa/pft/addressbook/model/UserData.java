@@ -11,7 +11,7 @@ public class UserData {
     private final String company;
     private final String address;
     private final String phone;
-    private String group;
+    private final String group;
 
     public UserData(int id, String firstName, String middleName, String lastName,
                     String nickname, String company, String address, String phone, String group) {
@@ -26,18 +26,6 @@ public class UserData {
         this.group = group;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
-        return Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
 
     public UserData(String firstName, String middleName, String lastName,
                     String nickname, String company, String address, String phone, String group) {
@@ -99,4 +87,16 @@ public class UserData {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
     @Test
-
     public void testGroupCreation() {
         app.getNavigationHelper().goToGroupPage();
         List<GroupData> before = app.getGroupHelper().getGroupList();
@@ -19,7 +18,7 @@ public class GroupCreationTests extends TestBase {
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(group);
-        Comparator<? super GroupData> ById = (g1,g2) -> Integer.compare(g1.getId(), g2.getId());
+        Comparator<? super GroupData> ById = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(ById);
         after.sort(ById);
         Assert.assertEquals(before, after);

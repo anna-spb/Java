@@ -13,7 +13,7 @@ public class UserCreationTest extends TestBase {
 
     @Test
     public void testUserCreation() {
-
+        app.getNavigationHelper().goToHomePage();
         List<UserData> before = app.getUserHelper().getUserList();
         UserData user = new UserData("Netochka", "Borisovna",
                 "Broshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
