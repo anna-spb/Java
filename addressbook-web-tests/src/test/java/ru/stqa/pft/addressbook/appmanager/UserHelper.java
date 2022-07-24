@@ -69,6 +69,13 @@ public class UserHelper extends HelperBase {
         submitNewUser();
         app.getNavigationHelper().goToHomePage();
     }
+    public void modifyUser(int index, UserData user) {
+        app.getUserHelper().selectUser(index);
+        app.getUserHelper().initUserModification(index);
+        app.getUserHelper().fillUserForm(user, false);
+        app.getUserHelper().submitModificationUser();
+        app.getNavigationHelper().goToHomePage();
+    }
 
     public boolean isThereAnyUser() {
         return isElementPresent(By.name("selected[]"));

@@ -20,7 +20,6 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     public void testGroupModification() {
-
         List<GroupData> before = app.getGroupHelper().getGroupList();
         int index = before.size() - 1;
         GroupData group = new GroupData(before.get(index).getId(), "test3", "test2", "test3");
