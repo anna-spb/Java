@@ -63,29 +63,27 @@ public class UserHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createUser(UserData userData) {
+    public void create(UserData userData) {
         addNewUser();
         fillUserForm(userData, true);
         submitNewUser();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().goToHomePage();
     }
-    public void modifyUser(int index, UserData user) {
-        app.getUserHelper().selectUser(index);
-        app.getUserHelper().initUserModification(index);
-        app.getUserHelper().fillUserForm(user, false);
-        app.getUserHelper().submitModificationUser();
-        app.getNavigationHelper().goToHomePage();
+    public void modify(int index, UserData user) {
+        selectUser(index);
+        initUserModification(index);
+        fillUserForm(user, false);
+        submitModificationUser();
+        app.goTo().goToHomePage();
     }
-
-    public boolean isThereAnyUser() {
-        return isElementPresent(By.name("selected[]"));
-    }
-
-    public int getUserCount() {
-        return wd.findElements(By.name("selected[]")).size();
+    public void delete(int index) {
+        selectUser(index);
+        deleteSelectedUser();
+        closeAlert();
+        app.goTo().goToHomePage();
     }
 
-    public List<UserData> getUserList() {
+    public List<UserData> list() {
         List<UserData> users = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[position() >= 2]"));
         for (WebElement element : elements) {

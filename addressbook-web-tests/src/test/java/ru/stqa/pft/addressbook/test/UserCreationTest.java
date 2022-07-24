@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTest extends TestBase {
@@ -13,13 +12,13 @@ public class UserCreationTest extends TestBase {
 
     @Test
     public void testUserCreation() {
-        app.getNavigationHelper().goToHomePage();
-        List<UserData> before = app.getUserHelper().getUserList();
+        app.goTo().goToHomePage();
+        List<UserData> before = app.user().list();
         UserData user = new UserData("Netochka", "Borisovna",
                 "Broshkina", "Sova", "Google", "Tel-Aviv", "123456789", "test1");
-        app.getUserHelper().createUser(user);
+        app.user().create(user);
 
-        List<UserData> after = app.getUserHelper().getUserList();
+        List<UserData> after = app.user().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(user);
