@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,8 +88,8 @@ public class UserHelper extends HelperBase {
         app.goTo().goToHomePage();
     }
 
-    public Set<UserData> all() {
-        Set<UserData> users = new HashSet<>();
+    public Users all() {
+        Users users = new Users();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[position() >= 2]"));
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
