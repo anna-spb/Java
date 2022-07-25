@@ -3,82 +3,81 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class UserData {
-    private int id;
-    private final String firstName;
-    private final String middleName;
-    private final String lastName;
-    private final String nickname;
-    private final String company;
-    private final String address;
-    private final String phone;
-    private final String group;
-
-    public UserData(int id, String firstName, String middleName, String lastName,
-                    String nickname, String company, String address, String phone, String group) {
-        this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickname = nickname;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.group = group;
-    }
-
-
-    public UserData(String firstName, String middleName, String lastName,
-                    String nickname, String company, String address, String phone, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickname = nickname;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.group = group;
-    }
+    private int id = Integer.MAX_VALUE;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nickname;
+    private String company;
+    private String address;
+    private String phone;
+    private String group;
 
 
     public int getId() {
         return id;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public String getMiddleName() {
         return middleName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public String getNickname() {
         return nickname;
     }
-
     public String getCompany() {
         return company;
     }
-
     public String getAddress() {
         return address;
     }
-
     public String getPhone() {
         return phone;
     }
-
     public String getGroup() {
         return group;
     }
 
-    public void setId(int id) {
+
+    public UserData withId(int id) {
         this.id = id;
+        return this;
+    }
+    public UserData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+    public UserData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+    public UserData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+    public UserData withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+    public UserData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+    public UserData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+    public UserData withPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+    public UserData withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
     @Override
