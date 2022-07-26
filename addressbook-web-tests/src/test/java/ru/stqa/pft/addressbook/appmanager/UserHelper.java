@@ -43,11 +43,9 @@ public class UserHelper extends HelperBase {
     public void closeAlert() {
         wd.switchTo().alert().accept();
     }
-
     public void deleteSelectedUser() {
         click(By.xpath("//input[@value='Delete']"));
     }
-
     private void selectUserById(int id) {
         wd.findElement(By.cssSelector("input[value = '"+ id + "']")).click();
     }
@@ -57,13 +55,14 @@ public class UserHelper extends HelperBase {
     public void submitNewUser() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
-
-
     public void initUserModification() {
       wd.findElement(By.xpath("//img[@alt='Edit']")).click();
     }
     public void submitModificationUser() {
         click(By.name("update"));
+    }
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 
     public void create(UserData userData) {
@@ -91,7 +90,6 @@ public class UserHelper extends HelperBase {
         app.goTo().goToHomePage();
     }
     private Users userCache = null;
-
     public Users all() {
         if (userCache != null) {
             return new Users(userCache);
