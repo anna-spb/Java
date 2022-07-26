@@ -70,6 +70,7 @@ public class UserHelper extends HelperBase {
         addNewUser();
         fillUserForm(userData, true);
         submitNewUser();
+        userCache = null;
         app.goTo().goToHomePage();
     }
 
@@ -78,6 +79,7 @@ public class UserHelper extends HelperBase {
         initUserModification();
         fillUserForm(user, false);
         submitModificationUser();
+        userCache = null;
         app.goTo().goToHomePage();
     }
 
@@ -85,11 +87,16 @@ public class UserHelper extends HelperBase {
         selectUserById(user.getId());
         deleteSelectedUser();
         closeAlert();
+        userCache = null;
         app.goTo().goToHomePage();
     }
+    private Users userCache = null;
 
     public Users all() {
-        Users users = new Users();
+        if (userCache != null) {
+            return new Users(userCache);
+        }
+        userCache = new Users();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[position() >= 2]"));
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
@@ -97,9 +104,9 @@ public class UserHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]")).
                     findElement(By.tagName("input")).getAttribute("value"));
             UserData user = new UserData().withId(id).withFirstName(firstName).withLastName(lastName);
-            users.add(user);
+            userCache.add(user);
         }
-        return users;
+        return new Users(userCache);
     }
 
 
