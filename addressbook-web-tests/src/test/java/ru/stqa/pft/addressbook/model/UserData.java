@@ -10,21 +10,37 @@ public class UserData {
     private String nickname;
     private String company;
     private String address;
-    private String phone;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+    private String allPhones;
+     private String email;
+    private String email2;
+    private String email3;
     private String group;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
-        return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+    public String getWorkPhone() {
+        return workPhone;
+    }
+    public String getAllPhones() {
+        return allPhones;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+    public String getEmail() {
+        return email;
     }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
 
     public int getId() {
         return id;
@@ -47,13 +63,12 @@ public class UserData {
     public String getAddress() {
         return address;
     }
-    public String getPhone() {
-        return phone;
+    public String getHomePhone() {
+        return homePhone;
     }
     public String getGroup() {
         return group;
     }
-
 
     public UserData withId(int id) {
         this.id = id;
@@ -83,19 +98,58 @@ public class UserData {
         this.address = address;
         return this;
     }
-    public UserData withPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
     public UserData withGroup(String group) {
         this.group = group;
         return this;
     }
+    public UserData withHomePhone(String phone) {
+        this.homePhone = phone;
+        return this;
+    }
+      public UserData withMobilePhone(String mobile) {
+        this.mobilePhone = mobile;
+          return this;
+      }
+    public UserData withWorkPhone(String work) {
+        this.workPhone = work;
+        return this;
+    }
+    public UserData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+    public UserData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public UserData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+    public UserData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+
 
     @Override
     public String toString() {
         return "UserData{}";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName);
+    }
+
 
 
 }
