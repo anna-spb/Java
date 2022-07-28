@@ -103,14 +103,15 @@ public class UserHelper extends HelperBase {
         userCache = new Users();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[position() >= 2]"));
         for (WebElement element : elements) {
-            String lastName = element.findElement(By.xpath(".//td[2]")).getText();
-            String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]")).
                     findElement(By.tagName("input")).getAttribute("value"));
+            String lastName = element.findElement(By.xpath(".//td[2]")).getText();
+            String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+            String address = element.findElement(By.xpath(".//td[4]")).getText();
+            String allEmail = element.findElement(By.xpath(".//td[5]")).getText();
             String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
-
             UserData user = new UserData().withId(id).withFirstName(firstName).withLastName(lastName)
-                    .withAllPhones(allPhones);
+                    .withAddress(address).withAllEmail(allEmail) .withAllPhones(allPhones);
             userCache.add(user);
         }
         return new Users(userCache);

@@ -17,6 +17,8 @@ public class UserData {
      private String email;
     private String email2;
     private String email3;
+
+     private String allEmail;
     private String group;
 
     public String getMobilePhone() {
@@ -41,8 +43,11 @@ public class UserData {
         return email3;
     }
 
+    public String getAllEmail() {
+        return allEmail;
+    }
 
-    public int getId() {
+      public int getId() {
         return id;
     }
     public String getFirstName() {
@@ -130,7 +135,10 @@ public class UserData {
         this.email3 = email3;
         return this;
     }
-
+    public UserData withAllEmail(String allEmail) {
+        this.allEmail = allEmail;
+        return this;
+    }
 
 
     @Override
