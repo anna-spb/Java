@@ -13,22 +13,28 @@ public class UserData {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
+    private String phone2;
     private String allPhones;
-     private String email;
+    private String email;
     private String email2;
     private String email3;
-
-     private String allEmail;
+    private String allEmail;
     private String group;
 
     public String getMobilePhone() {
         return mobilePhone;
     }
+
     public String getWorkPhone() {
         return workPhone;
     }
+
     public String getAllPhones() {
         return allPhones;
+    }
+
+    public String getPhone2() {
+        return phone2;
     }
 
     public String getEmail() {
@@ -47,30 +53,38 @@ public class UserData {
         return allEmail;
     }
 
-      public int getId() {
+    public int getId() {
         return id;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getMiddleName() {
         return middleName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public String getNickname() {
         return nickname;
     }
+
     public String getCompany() {
         return company;
     }
+
     public String getAddress() {
         return address;
     }
+
     public String getHomePhone() {
         return homePhone;
     }
+
     public String getGroup() {
         return group;
     }
@@ -79,62 +93,82 @@ public class UserData {
         this.id = id;
         return this;
     }
+
     public UserData withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
+
     public UserData withMiddleName(String middleName) {
         this.middleName = middleName;
         return this;
     }
+
     public UserData withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
+
     public UserData withNickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
+
     public UserData withCompany(String company) {
         this.company = company;
         return this;
     }
+
     public UserData withAddress(String address) {
         this.address = address;
         return this;
     }
+
     public UserData withGroup(String group) {
         this.group = group;
         return this;
     }
+
     public UserData withHomePhone(String phone) {
         this.homePhone = phone;
         return this;
     }
-      public UserData withMobilePhone(String mobile) {
+
+    public UserData withMobilePhone(String mobile) {
         this.mobilePhone = mobile;
-          return this;
-      }
+        return this;
+    }
+
     public UserData withWorkPhone(String work) {
         this.workPhone = work;
         return this;
     }
+
+    public UserData withPhone2(String phone2) {
+        this.phone2 = phone2;
+        return this;
+    }
+
     public UserData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
         return this;
     }
+
     public UserData withEmail(String email) {
         this.email = email;
         return this;
     }
+
     public UserData withEmail2(String email2) {
         this.email2 = email2;
         return this;
     }
+
     public UserData withEmail3(String email3) {
         this.email3 = email3;
         return this;
     }
+
     public UserData withAllEmail(String allEmail) {
         this.allEmail = allEmail;
         return this;
@@ -153,11 +187,11 @@ public class UserData {
         UserData userData = (UserData) o;
         return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName);
     }
-
 
 
 }

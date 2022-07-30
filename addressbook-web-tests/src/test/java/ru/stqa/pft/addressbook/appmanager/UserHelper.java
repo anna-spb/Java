@@ -111,7 +111,7 @@ public class UserHelper extends HelperBase {
             String allEmail = element.findElement(By.xpath(".//td[5]")).getText();
             String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
             UserData user = new UserData().withId(id).withFirstName(firstName).withLastName(lastName)
-                    .withAddress(address).withAllEmail(allEmail) .withAllPhones(allPhones);
+                    .withAddress(address).withAllEmail(allEmail).withAllPhones(allPhones);
             userCache.add(user);
         }
         return new Users(userCache);
@@ -126,13 +126,14 @@ public class UserHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String phone2 = wd.findElement(By.name("phone2")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new UserData().withId(user.getId()).withFirstName(firstname).withLastName(lastname)
                 .withAddress(address)
-                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withPhone2(phone2)
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
 
 

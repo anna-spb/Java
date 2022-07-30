@@ -24,9 +24,9 @@ public class UserPersonalsTest extends TestBase {
 
 
     private Object mergePhones(UserData user) {
-        return Arrays.asList(user.getHomePhone(), user.getMobilePhone(), user.getWorkPhone())
+        return Arrays.asList(user.getHomePhone(), user.getMobilePhone(), user.getWorkPhone(), user.getPhone2())
                 .stream().filter((s) -> !s.equals(""))
-                .map(UserPersonalsTest::cleaned)
+                .map(UserPersonalsTest::cleanedPhone)
                 .collect(Collectors.joining("\n"));
     }
 
@@ -39,13 +39,16 @@ public class UserPersonalsTest extends TestBase {
     private Object mergeEmail(UserData user) {
         return Arrays.asList(user.getEmail(), user.getEmail2(), user.getEmail3())
                 .stream().filter((s) -> !s.equals(""))
-                .map(UserPersonalsTest::cleaned)
+                .map(UserPersonalsTest::cleanedEmail)
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String phone) {
+    public static String cleanedPhone(String phone) {
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 
-
+    public static String cleanedEmail(String phone) {
+        return phone.replaceAll("\\s+", " ");
+    }
 }
+
