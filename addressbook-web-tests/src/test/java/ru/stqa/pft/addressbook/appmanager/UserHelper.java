@@ -26,6 +26,8 @@ public class UserHelper extends HelperBase {
         type(By.name("company"), userData.getCompany());
         type(By.name("address"), userData.getAddress());
         type(By.name("home"), userData.getHomePhone());
+        attach(By.name("photo"), userData.getPhoto());
+
         if (creation) {
             if (isElementPresent(By.name(userData.getGroup()))) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
