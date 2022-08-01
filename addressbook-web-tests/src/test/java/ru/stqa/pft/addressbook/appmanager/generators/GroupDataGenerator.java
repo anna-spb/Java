@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.generators;
+package ru.stqa.pft.addressbook.appmanager.generators;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -32,13 +32,7 @@ public class GroupDataGenerator {
         }
             generator.run();
         }
-//        try {
-//            jCommander.parse(args);
-//        } catch (ParameterException ex) {
-//            jCommander.usage();
-//            return;
-//        }
-//        generator.run();
+
 
 
     private void run() throws IOException {
