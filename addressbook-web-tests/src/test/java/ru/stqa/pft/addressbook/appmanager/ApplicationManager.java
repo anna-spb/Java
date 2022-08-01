@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
-import ru.stqa.pft.addressbook.generators.GroupHelper;
 
 import java.io.File;
 import java.io.FileReader;
