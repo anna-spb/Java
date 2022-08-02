@@ -62,8 +62,8 @@ public class UserDataGenerator {
     private void saveAsCsv(List<UserData> users, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (UserData user : users) {
-            writer.write(String.format("%s; %s; %s; %s\n", user.getFirstName(), user.getLastName(), user.getAddress()));
-
+            writer.write(String.format("%s; %s; %s; %s; %s\n", user.getFirstName(), user.getLastName(),
+                    user.getAddress(), user.getHomePhone(), user.getGroup()));
         }
         writer.close();
     }
@@ -71,9 +71,12 @@ public class UserDataGenerator {
     private List<UserData> generateUsers(int count) {
         List<UserData> users = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            users.add(new UserData().withFirstName(String.format("firstName %s", i))
+            users.add(new UserData()
+                    .withFirstName(String.format("firstName %s", i))
                     .withLastName(String.format("lastName %s", i))
-                    .withAddress(String.format("address %s", i)));
+                    .withAddress(String.format("address %s", i))
+                    .withHomePhone(String.format("%s%s%s%s", i,i,i,i))
+                    .withGroup(String.format("test %s", i)));
         }
         return users;
     }

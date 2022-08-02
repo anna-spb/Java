@@ -16,7 +16,7 @@ public class UserData {
     private String company;
     @Expose
     private String address;
-
+    @Expose
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
@@ -26,6 +26,7 @@ public class UserData {
     private String email2;
     private String email3;
     private String allEmail;
+    @Expose
     private String group;
     private File photo;
 

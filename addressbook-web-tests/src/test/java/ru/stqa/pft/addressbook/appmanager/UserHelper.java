@@ -28,15 +28,15 @@ public class UserHelper extends HelperBase {
        // type(By.name("home"), user.getHomePhone());
         // attach(By.name("photo"), user.getPhoto());
 
-//        if (creation) {
-//            if (isElementPresent(By.name(user.getGroup()))) {
-//                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(user.getGroup());
-//            } else {
-//                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
-//            }
-//        } else {
-//            Assert.assertFalse(isElementPresent(By.name("new_group")));
-//        }
+        if (creation) {
+            if (isElementPresent(By.name(user.getGroup()))) {
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(user.getGroup());
+            } else {
+                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void closeAlert() {
