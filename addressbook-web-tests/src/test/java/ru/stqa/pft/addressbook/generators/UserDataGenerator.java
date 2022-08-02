@@ -50,6 +50,7 @@ public class UserDataGenerator {
             System.out.println("Unrecognized format" + format);
         }
     }
+
     private void saveAsJson(List<UserData> users, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(users);
@@ -61,8 +62,8 @@ public class UserDataGenerator {
     private void saveAsCsv(List<UserData> users, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (UserData user : users) {
-            writer.write(String.format("%s; %s; %s; %s\n", user.getFirstName(), user.getLastName(), user.getAddress(),
-                    user.getAllPhones()));
+            writer.write(String.format("%s; %s; %s; %s\n", user.getFirstName(), user.getLastName(), user.getAddress()));
+
         }
         writer.close();
     }
@@ -72,8 +73,7 @@ public class UserDataGenerator {
         for (int i = 0; i < count; i++) {
             users.add(new UserData().withFirstName(String.format("firstName %s", i))
                     .withLastName(String.format("lastName %s", i))
-                    .withAddress(String.format("address %s", i))
-                    .withAllPhones(String.format("allPhones %s %s", i,i)));
+                    .withAddress(String.format("address %s", i)));
         }
         return users;
     }

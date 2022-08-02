@@ -16,11 +16,11 @@ public class UserData {
     private String company;
     @Expose
     private String address;
+
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
     private String phone2;
-    @Expose
     private String allPhones;
     private String email;
     private String email2;
