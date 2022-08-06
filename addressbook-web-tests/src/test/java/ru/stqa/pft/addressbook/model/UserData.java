@@ -1,11 +1,18 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "addressbook")
 public class UserData {
+   @Id
+   @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
     private String firstName;
@@ -15,21 +22,45 @@ public class UserData {
     private String nickname;
     private String company;
     @Expose
+    @Type(type = "text")
     private String address;
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+    @Type(type = "text")
     private String phone2;
+    @Transient
     private String allPhones;
+    @Type(type = "text")
     private String email;
+    @Type(type = "text")
     private String email2;
+    @Type(type = "text")
     private String email3;
+    @Transient
     private String allEmail;
     @Expose
+    @Transient
     private String group;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String  photo;
 
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 
     public String getMobilePhone() {
         return mobilePhone;
@@ -100,15 +131,12 @@ public class UserData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
-
-
     public UserData withId(int id) {
         this.id = id;
         return this;
     }
-
     public UserData withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
@@ -190,15 +218,10 @@ public class UserData {
     }
 
     public UserData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
-
-    @Override
-    public String toString() {
-        return "UserData{}";
-    }
 
     @Override
     public boolean equals(Object o) {
