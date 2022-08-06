@@ -3,14 +3,16 @@ package ru.stqa.pft.addressbook.test;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,12 +50,12 @@ public class GroupCreationTests extends TestBase {
             line = reader.readLine();
         }
         Gson gson = new Gson();
-        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {}.getType());
+        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+        }.getType());
 
         return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
 
     }
-
 
 
     @Test(dataProvider = "validGroupsFromJson")
