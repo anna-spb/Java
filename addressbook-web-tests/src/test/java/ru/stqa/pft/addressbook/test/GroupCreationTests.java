@@ -3,8 +3,6 @@ package ru.stqa.pft.addressbook.test;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -37,7 +35,6 @@ public class GroupCreationTests extends TestBase {
 
         List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
         return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
-
     }
 
     @DataProvider
@@ -54,29 +51,28 @@ public class GroupCreationTests extends TestBase {
         }.getType());
 
         return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
-
     }
 
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreation(GroupData group) {
         app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size() + 1));
-        Groups after = app.group().all();
-        assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId())
+        Groups after = app.db().groups();
+        assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt(GroupData::getId)
                 .max().getAsInt()))));
     }
 
     @Test
     public void testBadGroupCreation() {
         app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("test7'");
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()));//хэширование
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 }
