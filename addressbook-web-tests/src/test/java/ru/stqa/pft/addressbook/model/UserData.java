@@ -53,29 +53,6 @@ public class UserData {
     @Type(type = "text")
     private String  photo;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
-        return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName) && Objects.equals(nickname, userData.nickname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, nickname);
-    }
-
-    @Override
-    public String toString() {
-        return "UserData{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nickname='" + nickname + '\'' +
-                '}';
-    }
-
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -236,5 +213,28 @@ public class UserData {
         return this;
     }
 
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return id == userData.id && Objects.equals(firstName, userData.firstName) && Objects.equals(lastName, userData.lastName) && Objects.equals(address, userData.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, address);
+    }
 
 }

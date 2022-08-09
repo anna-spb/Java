@@ -32,5 +32,6 @@ public class UserModificationTests extends TestBase {
         Users after = app.db().users();
 
         assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
+        verifyUserListUI();
     }
 }

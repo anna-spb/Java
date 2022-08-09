@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -54,5 +56,14 @@ public class TestBase {
         }
     }
 
-
+    public void verifyUserListUI() {
+        if (Boolean.getBoolean("verifyUI")) {
+            Users dbUsers = app.db().users();
+            Users uiUsers = app.user().all();
+            assertThat(uiUsers, equalTo(dbUsers.stream()
+                    .map((u) -> new UserData().withId(u.getId()).withFirstName(u.getFirstName())
+                            .withLastName(u.getLastName()).withAddress(u.getAddress()))
+                    .collect(Collectors.toSet())));
+        }
+    }
 }

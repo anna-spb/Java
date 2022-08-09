@@ -27,5 +27,6 @@ public class UserDeletionTest extends TestBase {
         Users after = app.db().users();
 
         assertThat(after, equalTo(before.without(deletedUser)));
+        verifyUserListUI();
     }
 }

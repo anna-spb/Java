@@ -5,12 +5,6 @@
     "address": "address 0",
     "homePhone": "0000",
     "group": "test 0"
-  },
-  {
-    "firstName": "firstName 1",
-    "lastName": "lastName 1",
-    "address": "address 1",
-    "homePhone": "1111",
-    "group": "test 1"
   }
+
 ]
