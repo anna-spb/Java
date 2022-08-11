@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.test;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -9,9 +10,7 @@ import ru.stqa.pft.addressbook.model.Users;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
-public class addUserToGroup extends TestBase {
-
+public class deleteUserFromGroup extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         if (app.db().groups().isEmpty()) {
@@ -26,14 +25,25 @@ public class addUserToGroup extends TestBase {
         }
     }
 
+
     @Test
-    public void testAddUserToGroup() {
+    public void testUntitledTestCase() {
         Users before = app.db().users();
         app.goTo().goToHomePage();
         UserData chosenUser = before.iterator().next();
-        UserData user = new UserData().withId(chosenUser.getId()).withFirstName("Neta");
-        GroupData group = new GroupData().withName("test5");
-        app.user().initAddingToGroup(user, group);
+        GroupData group = new GroupData().withName("test 1");
+        app.user().selectGroup(group);
+        UserData user = new UserData().withId(chosenUser.getId());
+        if (app.user().count() == 0 ||
+                !app.user().isElementPresent(By.cssSelector("input[value = '" + user.getId() + "']"))) {
+            app.user().checkAllPage();
+            app.user().selectUserById(user.getId());
+            app.user().addToGroup(group);
+            app.goTo().goToHomePage();
+            app.user().selectGroup(group);
+        }
+
+        app.user().deleteUserFromGroup(user);
         app.goTo().goToHomePage();
         app.user().checkUserInGroup(group);
         Users after = app.db().users();

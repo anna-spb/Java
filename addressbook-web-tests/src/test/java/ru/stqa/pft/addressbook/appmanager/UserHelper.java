@@ -35,7 +35,7 @@ public class UserHelper extends HelperBase {
 //            } else {
 //                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
 //            }
-        } else {
+//        } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
@@ -48,7 +48,7 @@ public class UserHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    private void selectUserById(int id) {
+    public void selectUserById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
@@ -102,16 +102,40 @@ public class UserHelper extends HelperBase {
         addToGroup(group);
     }
 
-    private void addToGroup(GroupData group) {
+    public void addToGroup(GroupData group) {
         click(By.name("to_group"));
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
         click(By.name("add"));
     }
-    public void checkAdding(GroupData group) {
-       click(By.name("group"));
+
+    public void checkUserInGroup(GroupData group) {
+        click(By.name("group"));
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
     }
 
+    public void checkAllPage() {
+        click(By.name("group"));
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+        wd.get("http://localhost/addressbook/?group=");
+    }
+
+
+    public void selectGroup(GroupData group) {
+        click(By.name("group"));
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+
+    public void deleteUserFromGroup(UserData user) {
+        selectUserById(user.getId());
+        wd.findElement(By.name("remove")).click();
+    }
+
+    public void checkRightUser(int id) {
+        if (isElementPresent(By.cssSelector("input[value = '" + id + "']"))) {
+            return;
+        }
+        click(By.linkText("home"));
+    }
 
     private Users userCache = null;
 
