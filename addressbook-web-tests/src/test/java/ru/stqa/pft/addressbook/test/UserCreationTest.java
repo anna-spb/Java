@@ -5,6 +5,7 @@ import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -41,9 +42,10 @@ public class UserCreationTest extends TestBase {
 
     @Test(dataProvider = "validUsersFromJson")
     public void testUserCreation(UserData user) {
+     //   Groups groupsAll = app.db().groups();
         app.goTo().goToHomePage();
         Users before = app.user().all();
-        // File photo = new File("src/test/resources/pic.JPG");
+        File photo = new File("src/test/resources/pic.JPG");
         app.user().create(user);
         assertThat(app.user().count(), equalTo(before.size() + 1));
         Users after = app.user().all();

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -25,15 +26,15 @@ public class UserHelper extends HelperBase {
         //    type(By.name("nickname"), user.getNickname());
         //   type(By.name("company"), user.getCompany());
         type(By.name("address"), user.getAddress());
-       // type(By.name("home"), user.getHomePhone());
+        // type(By.name("home"), user.getHomePhone());
         // attach(By.name("photo"), user.getPhoto());
 
         if (creation) {
-            if (isElementPresent(By.name(user.getGroup()))) {
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(user.getGroup());
-            } else {
-                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
-            }
+//        if (isElementPresent(By.name(user.getGroup()))) {
+//                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(user.getGroup());
+//            } else {
+//                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+//            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -95,6 +96,22 @@ public class UserHelper extends HelperBase {
         userCache = null;
         app.goTo().goToHomePage();
     }
+
+    public void initAddingToGroup(UserData user, GroupData group) {
+        selectUserById(user.getId());
+        addToGroup(group);
+    }
+
+    private void addToGroup(GroupData group) {
+        click(By.name("to_group"));
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        click(By.name("add"));
+    }
+    public void checkAdding(GroupData group) {
+       click(By.name("group"));
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+
 
     private Users userCache = null;
 
