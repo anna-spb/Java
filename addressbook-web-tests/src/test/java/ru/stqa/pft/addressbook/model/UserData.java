@@ -215,6 +215,11 @@ public class UserData {
         return this;
     }
 
+    public UserData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
 
     @Override
     public String toString() {
@@ -238,5 +243,6 @@ public class UserData {
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, address);
     }
+
 
 }

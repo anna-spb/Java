@@ -19,26 +19,29 @@ public class UserHelper extends HelperBase {
         super(wd);
     }
 
-    public void fillUserForm(UserData user, boolean creation) {
-        type(By.name("firstname"), user.getFirstName());
-        //    type(By.name("middlename"), user.getMiddleName());
-        type(By.name("lastname"), user.getLastName());
-        //    type(By.name("nickname"), user.getNickname());
-        //   type(By.name("company"), user.getCompany());
-        type(By.name("address"), user.getAddress());
-        // type(By.name("home"), user.getHomePhone());
-        // attach(By.name("photo"), user.getPhoto());
+    public void fillUserForm(UserData userData, boolean creation) {
+        type(By.name("firstname"), userData.getFirstName());
+        type(By.name("middlename"), userData.getMiddleName());
+        type(By.name("lastname"), userData.getLastName());
+        type(By.name("nickname"), userData.getNickname());
+        type(By.name("company"), userData.getCompany());
+        type(By.name("address"), userData.getAddress());
+        type(By.name("home"), userData.getHomePhone());
+        attach(By.name("photo"), userData.getPhoto());
 
         if (creation) {
-//        if (isElementPresent(By.name(user.getGroup()))) {
-//                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(user.getGroup());
-//            } else {
-//                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
-//            }
-//        } else {
+            if (userData.getGroups().size() > 0) {
+                Assert.assertTrue(userData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group")))
+                        .selectByVisibleText(userData.getGroups().iterator().next().getName());
+            } else {
+                new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+            }
+        } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
+
 
     public void closeAlert() {
         wd.switchTo().alert().accept();
@@ -99,7 +102,17 @@ public class UserHelper extends HelperBase {
 
     public void initAddingToGroup(UserData user, GroupData group) {
         selectUserById(user.getId());
-        addToGroup(group);
+        if (user.getGroups().contains(group)) {
+            for (GroupData groupCopy : app.db().groups()) {
+                if (!user.getGroups().contains(groupCopy)) {
+                    addToGroup(groupCopy);
+                    return;
+                }
+            }
+        } else {
+            addToGroup(group);
+            return;
+        }
     }
 
     public void addToGroup(GroupData group) {
@@ -132,9 +145,9 @@ public class UserHelper extends HelperBase {
 
     public void checkRightUser(int id) {
         if (isElementPresent(By.cssSelector("input[value = '" + id + "']"))) {
-            return;
         }
-        click(By.linkText("home"));
+
+
     }
 
     private Users userCache = null;

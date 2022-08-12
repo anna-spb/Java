@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -16,7 +17,7 @@ public class addUserToGroup extends TestBase {
     public void ensurePreconditions() {
         if (app.db().groups().isEmpty()) {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName("test5"));
+            app.group().create(new GroupData().withName("test9"));
         }
 
         if (app.db().users().isEmpty()) {
@@ -24,18 +25,29 @@ public class addUserToGroup extends TestBase {
             app.user().create(new UserData().withFirstName("Neta").withLastName("Dedova").withCompany("Google")
                     .withAddress("Tel-Aviv").withHomePhone("123456789"));
         }
+
     }
 
     @Test
     public void testAddUserToGroup() {
         Users before = app.db().users();
-        app.goTo().goToHomePage();
         UserData chosenUser = before.iterator().next();
-        UserData user = new UserData().withId(chosenUser.getId()).withFirstName("Neta");
-        GroupData group = new GroupData().withName("test5");
-        app.user().initAddingToGroup(user, group);
+        GroupData chosenGroup;
+        Groups groups = app.db().groups();
+        if (groups.size() == chosenUser.getGroups().size()) {
+            GroupData newGroup = new GroupData().withName("test_new");
+            chosenGroup = newGroup;
+            app.goTo().groupPage();
+            app.group().create(newGroup);
+
+        } else {
+            chosenGroup = groups.iterator().next();
+        }
+
         app.goTo().goToHomePage();
-        app.user().checkUserInGroup(group);
+        app.user().initAddingToGroup(chosenUser, chosenGroup);
+        app.goTo().goToHomePage();
+        app.user().checkUserInGroup(chosenGroup);
         Users after = app.db().users();
 
         assertThat(after, equalTo(before));

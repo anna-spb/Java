@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.test;
 
 import com.google.gson.Gson;
 import org.openqa.selenium.json.TypeToken;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -22,6 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserCreationTest extends TestBase {
 
+
     @DataProvider
     public Iterator<Object[]> validUsersFromJson() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"));
@@ -40,18 +42,25 @@ public class UserCreationTest extends TestBase {
     }
 
 
-    @Test(dataProvider = "validUsersFromJson")
-    public void testUserCreation(UserData user) {
-     //   Groups groupsAll = app.db().groups();
-        app.goTo().goToHomePage();
-        Users before = app.user().all();
+    @Test(dataProvider = "")
+    public void testUserCreation() {
+        Groups groupsAll = app.db().groups();
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test 9"));
+        }
         File photo = new File("src/test/resources/pic.JPG");
-        app.user().create(user);
+        app.goTo().goToHomePage();
+        Users before = app.db().users();
+        UserData newUser = new UserData().withFirstName("Neta").withLastName("Broshkina")
+                .withAddress("Jerusalem").withPhoto(photo).
+                inGroup(groupsAll.iterator().next());
+        app.user().create(newUser);
         assertThat(app.user().count(), equalTo(before.size() + 1));
-        Users after = app.user().all();
+        Users after = app.db().users();
 
         assertThat(after, equalTo(
-                before.withAdded(user.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
+                before.withAdded(newUser.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
 
         verifyUserListUI();
     }
