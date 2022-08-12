@@ -30,30 +30,30 @@ public class UserDeletionFromGroupTests extends TestBase {
 
     @Test
     public void testDeletionUserFromGroup() {
-        Users before = app.db().users();
-        UserData chosenUser = before.iterator().next();
+        Users users = app.db().users();
+        UserData chosenUser = users.iterator().next();
         Groups groups = app.db().groups();
         GroupData chosenGroup = groups.iterator().next();
 
+        app.goTo().goToHomePage();
+        app.user().selectGroup(chosenGroup);
+        if (app.user().count() == 0 ||
+                !app.user().isElementPresent(By.cssSelector("input[value = '" + chosenUser.getId() + "']"))) {
+            app.user().checkAllPage();
+            app.user().selectUserById(chosenUser.getId());
+            app.user().addToGroup(chosenGroup);
             app.goTo().goToHomePage();
             app.user().selectGroup(chosenGroup);
-            if (app.user().count() == 0 ||
-                    !app.user().isElementPresent(By.cssSelector("input[value = '" + chosenUser.getId() + "']"))) {
-                app.user().checkAllPage();
-                app.user().selectUserById(chosenUser.getId());
-                app.user().addToGroup(chosenGroup);
-                app.goTo().goToHomePage();
-                app.user().selectGroup(chosenGroup);
-            }
-
-            app.user().deleteUserFromGroup(chosenUser);
-            app.goTo().goToHomePage();
-            app.user().checkUserInGroup(chosenGroup);
-            Users after = app.db().users();
-
-            assertThat(after, equalTo(before));
-
-            verifyUserListUI();
         }
-   }
+
+        app.user().deleteUserFromGroup(chosenUser);
+        app.goTo().goToHomePage();
+
+        app.user().checkUserNotInGroup(chosenGroup, chosenUser);
+
+
+        verifyUserListUI();
+        verifyGroupListUI();
+    }
+}
 

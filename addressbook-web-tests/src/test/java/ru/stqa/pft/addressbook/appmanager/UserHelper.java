@@ -111,7 +111,6 @@ public class UserHelper extends HelperBase {
             }
         } else {
             addToGroup(group);
-            return;
         }
     }
 
@@ -121,9 +120,16 @@ public class UserHelper extends HelperBase {
         click(By.name("add"));
     }
 
-    public void checkUserInGroup(GroupData group) {
+    public void checkUserInGroup(GroupData group, UserData user) {
         click(By.name("group"));
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    Assert.assertTrue(isElementPresent(By.id(Integer.toString(user.getId()))));
+    }
+
+    public void checkUserNotInGroup(GroupData group, UserData user) {
+        click(By.name("group"));
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        Assert.assertFalse(isElementPresent(By.id(Integer.toString(user.getId()))));
     }
 
     public void checkAllPage() {
@@ -143,12 +149,6 @@ public class UserHelper extends HelperBase {
         wd.findElement(By.name("remove")).click();
     }
 
-    public void checkRightUser(int id) {
-        if (isElementPresent(By.cssSelector("input[value = '" + id + "']"))) {
-        }
-
-
-    }
 
     private Users userCache = null;
 

@@ -30,10 +30,12 @@ public class AddUserToGroupTests extends TestBase {
 
     @Test
     public void testAddUserToGroup() {
-        Users before = app.db().users();
-        UserData chosenUser = before.iterator().next();
+        Users user = app.db().users();
+        UserData chosenUser = user.iterator().next();
+
         GroupData chosenGroup;
         Groups groups = app.db().groups();
+
         if (groups.size() == chosenUser.getGroups().size()) {
             GroupData newGroup = new GroupData().withName("test_new");
             chosenGroup = newGroup;
@@ -47,12 +49,11 @@ public class AddUserToGroupTests extends TestBase {
         app.goTo().goToHomePage();
         app.user().initAddingToGroup(chosenUser, chosenGroup);
         app.goTo().goToHomePage();
-        app.user().checkUserInGroup(chosenGroup);
-        Users after = app.db().users();
 
-        assertThat(after, equalTo(before));
+        app.user().checkUserInGroup(chosenGroup, chosenUser);
 
         verifyUserListUI();
+        verifyGroupListUI();
     }
 
 }
