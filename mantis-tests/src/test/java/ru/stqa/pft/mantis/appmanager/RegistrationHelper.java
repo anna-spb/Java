@@ -1,7 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class RegistrationHelper extends HelperBase {
 
@@ -15,6 +14,7 @@ public class RegistrationHelper extends HelperBase {
         type(By.name("email"), email);
         click(By.cssSelector("input[type='submit'"));
 
+
     }
 
     public void finish(String confirmationLink, String password) {
@@ -23,4 +23,6 @@ public class RegistrationHelper extends HelperBase {
         type(By.name("password_confirm"), password);
         click(By.cssSelector("input[value='Update User'"));
     }
+
+
 }

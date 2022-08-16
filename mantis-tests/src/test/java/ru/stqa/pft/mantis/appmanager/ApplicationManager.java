@@ -17,11 +17,11 @@ import java.util.Properties;
 public class ApplicationManager {
     private final Properties properties;
     private WebDriver wd;
-
     private final String browser;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private LoginHelper loginHelper;
 
 
     public ApplicationManager(String browser) {
@@ -64,6 +64,13 @@ public class ApplicationManager {
             registrationHelper = new RegistrationHelper(this);
         }
         return registrationHelper;
+    }
+    public LoginHelper login(){
+
+        if (loginHelper == null) {
+            loginHelper = new LoginHelper(this);
+        }
+        return loginHelper;
     }
 
     public FtpHelper ftp() {
