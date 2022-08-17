@@ -26,26 +26,26 @@ public class ChangePasswordTests extends TestBase {
     public void testChangePassword() throws IOException, InterruptedException {
         // зашли админом
         app.login().loginAdmin();
-        //перешли на страницу управления
-        app.login().click(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
+        //перешли на страницу управления //перешли на страницу управления юзером
+        app.login().manageUsers(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
 
-        //перешли на страницу управления юзером
-        app.login().click(By.linkText("Manage Users"));
-
-
-        String email1 = "anna@localhost.localdomain";
-        String username = "anna";
+        String email1 = String.format(app.getDriver().findElement(By.xpath("//*[@id='main-container']" +
+                "/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[3]")).getText());
+        String username = String.format(app.getDriver().findElement
+                (By.xpath("//*[@id=\"main-container\"]" +
+                        "/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[1]/a")).getText());
         String password1 = "root1";
         app.login().click(By.linkText(String.format("%s", username)));
         app.login().click(By.cssSelector("input[value='Reset Password'"));
 
         //проверить почту
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 20000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email1);
-        app.registration().finish(confirmationLink, password1);
+        app.registration().finish(confirmationLink, password1, username);
         assertTrue(app.newSession().login(username, password1));
     }
+
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
         MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();

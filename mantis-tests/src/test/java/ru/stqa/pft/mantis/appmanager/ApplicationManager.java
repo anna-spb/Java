@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Properties;
 
 public class ApplicationManager {
@@ -99,4 +100,6 @@ public class ApplicationManager {
         }
         return mailHelper;
     }
+
+
 }

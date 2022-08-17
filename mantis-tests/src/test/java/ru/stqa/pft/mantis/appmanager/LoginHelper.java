@@ -24,5 +24,10 @@ public class LoginHelper extends HelperBase {
         login("administrator", "root");
     }
 
+    public void manageUsers(By locator) {
+        app.login().click(locator);
+        app.login().click(By.linkText("Manage Users"));
+    }
+
 
 }
