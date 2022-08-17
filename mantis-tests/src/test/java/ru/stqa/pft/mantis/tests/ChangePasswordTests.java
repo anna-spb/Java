@@ -30,18 +30,18 @@ public class ChangePasswordTests extends TestBase {
         app.login().click(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
 
         //перешли на страницу управления юзером
-        app.login().click(By.linkText("Управление пользователями"));
+        app.login().click(By.linkText("Manage Users"));
 
 
         String email1 = "anna@localhost.localdomain";
         String username = "anna";
         String password1 = "root1";
         app.login().click(By.linkText(String.format("%s", username)));
-        app.login().click(By.cssSelector("input[value='Сбросить пароль'"));
+        app.login().click(By.cssSelector("input[value='Reset Password'"));
 
         //проверить почту
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(1, 100000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(2, 20000);
         String confirmationLink = findConfirmationLink(mailMessages, email1);
         app.registration().finish(confirmationLink, password1);
         assertTrue(app.newSession().login(username, password1));
