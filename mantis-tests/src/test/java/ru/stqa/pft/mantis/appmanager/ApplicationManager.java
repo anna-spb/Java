@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import javafx.animation.AnimationTimer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Properties;
 
 public class ApplicationManager {
@@ -23,6 +21,7 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private LoginHelper loginHelper;
+    private DbHelper dbHelper;
 
 
     public ApplicationManager(String browser) {
@@ -34,6 +33,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHelper = new DbHelper();
     }
 
 
@@ -66,7 +66,8 @@ public class ApplicationManager {
         }
         return registrationHelper;
     }
-    public LoginHelper login(){
+
+    public LoginHelper login() {
 
         if (loginHelper == null) {
             loginHelper = new LoginHelper(this);
@@ -101,5 +102,8 @@ public class ApplicationManager {
         return mailHelper;
     }
 
+    public DbHelper db() {
+        return dbHelper;
+    }
 
 }

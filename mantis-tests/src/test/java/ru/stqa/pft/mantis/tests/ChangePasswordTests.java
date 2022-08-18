@@ -3,9 +3,13 @@ package ru.stqa.pft.mantis.tests;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UserData;
+import ru.stqa.pft.mantis.model.Users;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -19,29 +23,31 @@ public class ChangePasswordTests extends TestBase {
         app.mail().start();
     }
 
+    @BeforeTest
+    public void ensurePreconditions() throws InterruptedException {
+        if (app.db().users().size() == 1) {
+            app.registration().registrationNewUser("userNew@localhost.localdomain", "userNew", "password");
+        }
+    }
+
     @Test
     public void testChangePassword() throws IOException, InterruptedException {
-        // зашли админом
         app.login().loginAdmin();
-        //перешли на страницу управления //перешли на страницу управления юзером
         app.login().manageUsers(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
-        String username = String.format(app.getDriver().findElement
-                (By.xpath("//tbody/tr[2]/td[1]/a")).getText());
-
-        String email1 = String.format(app.getDriver().
-                findElement(By.xpath("//tbody/tr[2]/td[3]")).getText());
-        String password1 = "root1";
+        Users user = app.db().users();
+        UserData userPassword = user.iterator().next();
+        String username = userPassword.getUsername();
+        String email = userPassword.getEmail();
+        String passwordNew = "root1";
 
         app.login().click(By.linkText(String.format("%s", username)));
         app.login().click(By.cssSelector("input[value='Reset Password'"));
 
-        //проверить почту
-
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-        String confirmationLink = findConfirmationLink(mailMessages, email1);
-        app.registration().finish(confirmationLink, password1, username);
+        String confirmationLink = findConfirmationLink(mailMessages, email);
+        app.registration().finish(confirmationLink, passwordNew, username);
 
-        assertTrue(app.newSession().login(username, password1));
+        assertTrue(app.newSession().login(username, passwordNew));
     }
 
 
