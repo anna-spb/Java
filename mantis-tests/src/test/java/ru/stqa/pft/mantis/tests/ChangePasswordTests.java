@@ -1,14 +1,11 @@
 package ru.stqa.pft.mantis.tests;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
-import ru.stqa.pft.mantis.appmanager.HttpSession;
 import ru.stqa.pft.mantis.model.MailMessage;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -28,13 +25,13 @@ public class ChangePasswordTests extends TestBase {
         app.login().loginAdmin();
         //перешли на страницу управления //перешли на страницу управления юзером
         app.login().manageUsers(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
-
-        String email1 = String.format(app.getDriver().findElement(By.xpath("//*[@id='main-container']" +
-                "/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[3]")).getText());
         String username = String.format(app.getDriver().findElement
-                (By.xpath("//*[@id=\"main-container\"]" +
-                        "/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[1]/a")).getText());
+                (By.xpath("//tbody/tr[2]/td[1]/a")).getText());
+
+        String email1 = String.format(app.getDriver().
+                findElement(By.xpath("//tbody/tr[2]/td[3]")).getText());
         String password1 = "root1";
+
         app.login().click(By.linkText(String.format("%s", username)));
         app.login().click(By.cssSelector("input[value='Reset Password'"));
 
@@ -43,6 +40,7 @@ public class ChangePasswordTests extends TestBase {
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email1);
         app.registration().finish(confirmationLink, password1, username);
+
         assertTrue(app.newSession().login(username, password1));
     }
 
