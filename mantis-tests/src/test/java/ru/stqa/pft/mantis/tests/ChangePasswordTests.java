@@ -1,11 +1,9 @@
 package ru.stqa.pft.mantis.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 import ru.stqa.pft.mantis.model.Users;
@@ -32,29 +30,21 @@ public class ChangePasswordTests extends TestBase {
 
     @Test
     public void testChangePassword() throws IOException, InterruptedException {
-        app.login().loginAdmin();
-        app.login().manageUsers(By.xpath("//div[@id='sidebar']/ul/li[6]/a/i"));
+        app.user().loginAdmin();
+        app.user().chooseManageUsers();
         Users user = app.db().users();
         UserData userPassword = user.iterator().next();
         String username = userPassword.getUsername();
         String email = userPassword.getEmail();
-        String passwordNew = "root1";
+        String passwordNew = "passwordNew";
+        app.user().chooseUser(username);
+        app.user().resetPassword();
 
-        app.login().click(By.linkText(String.format("%s", username)));
-        app.login().click(By.cssSelector("input[value='Reset Password'"));
-
-        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-        String confirmationLink = findConfirmationLink(mailMessages, email);
-        app.registration().finish(confirmationLink, passwordNew, username);
+        List<MailMessage> mailMessages = app.mail().getMailMessages();
+        String confirmationLink = app.user().findConfirmationLink(mailMessages, email);
+        app.user().confirmAccount(confirmationLink, passwordNew, username);
 
         assertTrue(app.newSession().login(username, passwordNew));
-    }
-
-
-    private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-        return regex.getText(mailMessage.text);
     }
 
     @AfterMethod(alwaysRun = true)

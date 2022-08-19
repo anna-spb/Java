@@ -46,7 +46,10 @@ public class MailHelper {
             return  null;
         }
     }
-
+    public List<MailMessage> getMailMessages() throws InterruptedException {
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+        return mailMessages;
+    }
 
 
     public void start() {wiser.start();}

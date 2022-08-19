@@ -20,7 +20,7 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
-    private LoginHelper loginHelper;
+    private UserHelper user;
     private DbHelper dbHelper;
 
 
@@ -67,12 +67,12 @@ public class ApplicationManager {
         return registrationHelper;
     }
 
-    public LoginHelper login() {
+    public UserHelper user() {
 
-        if (loginHelper == null) {
-            loginHelper = new LoginHelper(this);
+        if (user == null) {
+            user = new UserHelper(this);
         }
-        return loginHelper;
+        return user;
     }
 
     public FtpHelper ftp() {

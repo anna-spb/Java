@@ -21,18 +21,10 @@ public class RegistrationHelper extends HelperBase {
 
     }
 
-    public void finish(String confirmationLink, String password, String user) {
-        wd.get(confirmationLink);
-        type(By.name("realname"), user);
-        type(By.name("password"), password);
-        type(By.name("password_confirm"), password);
-        click(By.xpath("//button[@type='submit']"));
-    }
-
     public void submitLink(String email, String user, String password) throws InterruptedException {
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 1000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
-        finish(confirmationLink, password, user);
+        app.user().confirmAccount(confirmationLink, password, user);
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
