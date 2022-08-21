@@ -21,10 +21,9 @@ buildscript{
 apply plugin: 'no.nils.wsdl2java'
 
 wsdl2java {
-    wsdlDir = file("src/main/resources") // define to support incremental build
+    wsdlDir = file("/src/main/resources") // define to support incremental build
     wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
-                          ['src/main/resources/wsdl/ipservice.wsdl'],
-                        ['-xjc','-b','bindingfile.xml','src/main/resources/wsdl/ipservice.wsdl']
-    ]
+                          ['src/main/resources/ipservice.wsdl'],
 
+    ]
 }
