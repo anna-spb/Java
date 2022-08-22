@@ -2,20 +2,15 @@ package ru.stqa.pft.soap;
 
 
 import com.lavasoft.GeoIPService;
-
-import com.lavasoft.GetIpLocation;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class IpServiceTests {
 
     @Test
     public void testIp() {
-        String ipLocation = new GeoIPService().getGeoIPServiceSoap12().getIpLocation("123456");
-
+        String location = new GeoIPService().getGeoIPServiceSoap12().getIpLocation20("5.29.20.243");
+        assertEquals(location, "<GeoIP><Country>IL</Country><State>05</State></GeoIP>" );
     }
-
 
 }
