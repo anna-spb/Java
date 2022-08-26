@@ -22,8 +22,6 @@ public class RegistrationTests extends TestBase {
         String password = "password";
         app.registration().registrationNewUser(email, user, password);
         assertTrue(app.newSession().login(user, password));
-
-
     }
 
 
